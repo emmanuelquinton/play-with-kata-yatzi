@@ -1,3 +1,5 @@
+package equinton.dev.kata.yatzy;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
