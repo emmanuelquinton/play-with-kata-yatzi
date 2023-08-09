@@ -13,9 +13,8 @@
 ## Step 2 - clean code
 
 ### My objectives
-
-Afin de garder les tests originaux je me suis imposé de ne pas modifier les contrats la classe Yatzy .
-A terme la classe Yatzy ne fera qu'appeler une autre classe dans laquelle tout le code sera placé.
+In order to keep the original tests, I decided not to modify the contracts in the Yatzy class.
+Eventually, the Yatzy class will simply call another class in which all the code will be placed.
 
 ### Process
 
@@ -29,3 +28,18 @@ A terme la classe Yatzy ne fera qu'appeler une autre classe dans laquelle tout l
   - sum of faces
   - grouping by face value
   - define if it's a straight.
+
+## Step 3 - Refactoring
+
+### My objectives
+In this Step my main goal is to extract all code from Yatzy classe and use strategy to calculate the score
+All new classes will be add in the package 'domain'
+TDD will be used to code.
+
+In first part of this step, the code will be duplicated to keep the old tests and new and compare tests.
+
+
+### Process
+
+- Creationg interface or enum to define the different Category to define 
+- Creation of the class CalculateYatzyScoreUseCase
