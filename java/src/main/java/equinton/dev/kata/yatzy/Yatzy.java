@@ -1,156 +1,75 @@
 package equinton.dev.kata.yatzy;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import static equinton.dev.kata.yatzy.domain.YatzyUtils.*;
+
+import equinton.dev.kata.yatzy.domain.CalculateYatzyScoreUseCase;
+import equinton.dev.kata.yatzy.domain.Category;
 
 public class Yatzy {
-    public static int yatzy(int... dices)
-    {
-        var groupedDiceValues = groupDiceByFace(dices);
-        if(groupedDiceValues.keySet().size()==1) {
-            return 50;
-        }
-        return 0;
-    }
 
-    public static int chance(int...dices)
-    {
-        return Arrays.stream(dices).sum();
+  protected int[] dice;
 
-    }
+  public Yatzy(int... dices) {
+    this.dice = dices;
+  }
+  public static int chance(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.CHANCE, dices);
+  }
 
+  public static int ones(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.ONES, dices);
+  }
 
-    public static int ones(int...dices) {
-        int contract = 1;
-        return getContractScore(contract, dices);
+  public static int twos(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.TWOS, dices);
+  }
 
-    }
-    public static int twos(int...dices) {
-        int contract = 2;
-        return getContractScore(contract, dices);
-    }
-
-    public static int threes(int...dices) {
-        int contract = 3;
-        return getContractScore(contract, dices);
-    }
-
-    public int fours()
-    {
-        int contract = 4;
-        return getContractScore(contract, this.dice);
-    }
-
-    public int fives()
-    {
-        int contract = 5;
-        return getContractScore(contract, this.dice);
-    }
-
-    public int sixes()
-    {
-        int contract = 6;
-        return getContractScore(contract, this.dice);
-    }
-    private static int getContractScore(int contract, int[] dices) {
-        return Arrays.stream(dices).filter(diceValue -> diceValue == contract)
-            .sum();
-
-    }
+  public static int threes(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.TREES, dices);
+  }
 
 
-    protected int[] dice;
-    public Yatzy(int...dices)
-    {
-        this.dice = dices;
-    }
+  public int fours() {
+    return new CalculateYatzyScoreUseCase().execute(Category.FOURS, this.dice);
+  }
 
+  public int fives() {
+    return new CalculateYatzyScoreUseCase().execute(Category.FIVES, this.dice);
+  }
 
-    public static int score_pair(int...dices)
-    {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
+  public int sixes() {
+    return new CalculateYatzyScoreUseCase().execute(Category.SIXES, this.dice);
+  }
 
-        var valuePairFace = groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() == 2)
-            .map(Map.Entry::getKey)
-            .max(Comparable::compareTo)
-            .orElseGet(() -> 0);
-        return valuePairFace*2;
+  public static int score_pair(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.PAIR, dices);
+  }
 
-    }
+  public static int two_pair(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.TWO_PAIRS, dices);
+  }
 
-    public static int two_pair(int...dices)
-    {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 2)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*2)
-            .sum();
+  public static int three_of_a_kind(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.TREE_OF_KIND, dices);
+  }
 
-    }
-    public static int four_of_a_kind(int...dices)
-    {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 4)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*4)
-            .sum();
-    }
+  public static int four_of_a_kind(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.FOUR_OF_KIND, dices);
+  }
 
-    private static Map<Integer, Long> groupDiceByFace(int[] dices) {
-        return Arrays.stream(dices).mapToObj(Integer::valueOf)
-            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-    }
+  public static int smallStraight(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.SMALL_STRAIGHT, dices);
+  }
 
+  public static int largeStraight(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.LARGE_STRAIGHT, dices);
+  }
 
+  public static int fullHouse(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.FULL_HOUSE, dices);
+  }
 
-    public static int three_of_a_kind(int...dices)
-    {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 3)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*3)
-            .sum();
-    }
-
-    public static int smallStraight(int...dices)
-    {
-        var straight = getStraight(dices);
-        if(straight.equals("12345")){
-            return 15;
-        }
-        return 0;
-    }
-
-    public static int largeStraight(int...dices)
-    {
-        var straight = getStraight(dices);
-        if(straight.equals("23456")){
-            return 20;
-        }
-        return 0;
-    }
-    private static String getStraight(int[] dices) {
-        return Arrays.stream(dices).sorted().mapToObj(String::valueOf).collect(Collectors.joining());
-    }
-
-
-    public static int fullHouse(int...dices)
-    {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        if(groupedDiceValues.keySet().size() != 2) {
-            return 0;
-        }
-
-        return chance(dices);
-
-    }
+  public static int yatzy(int... dices) {
+    return new CalculateYatzyScoreUseCase().execute(Category.YATZY, dices);
+  }
 }
-
-
-
