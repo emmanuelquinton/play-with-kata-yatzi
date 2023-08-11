@@ -1,5 +1,7 @@
 package equinton.dev.kata.yatzy.util;
 
+import equinton.dev.kata.yatzy.domain.model.DiceRoll;
+import equinton.dev.kata.yatzy.domain.model.Score;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
@@ -13,10 +15,10 @@ public  class ChanceRollProvider implements ArgumentsProvider{
     @Override
     public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) throws Exception {
         return Stream.of(
-            Arguments.of(new Game(new int[]{1,1,3,3,6}, 14)),
-            Arguments.of(new Game(new int[]{4,5,5,6,1}, 21)),
-            Arguments.of(new Game(new int[]{2,3,4,5,1}, 15)),
-            Arguments.of(new Game(new int[]{3,3,4,5,1}, 16))
+            Arguments.of(new Game(DiceRoll.of(new int[]{1,1,3,3,6}), Score.of(14))),
+            Arguments.of(new Game(DiceRoll.of(new int[]{4,5,5,6,1}), Score.of(21))),
+            Arguments.of(new Game(DiceRoll.of(new int[]{2,3,4,5,1}), Score.of(15))),
+            Arguments.of(new Game(DiceRoll.of(new int[]{3,3,4,5,1}), Score.of(16)))
         );
     }
 }

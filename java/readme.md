@@ -62,3 +62,12 @@ The yatzi class was modified only within the methods, so that the YatzyTest clas
 - I renamed the CalculateYatzyScorTest test to CalculateYatzyScoreUseCaseTest
 
 https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-3-refactoring
+
+
+## Step 4 - Add DDD principle
+#### step4-1
+In this step I tried to apply the  value object  principles like:
+-  2 Records has been created Score and DiceRoll
+
+
+

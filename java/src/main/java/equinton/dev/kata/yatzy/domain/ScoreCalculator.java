@@ -1,5 +1,8 @@
 package equinton.dev.kata.yatzy.domain;
 
+import equinton.dev.kata.yatzy.domain.model.DiceRoll;
+import equinton.dev.kata.yatzy.domain.model.Score;
+
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -10,50 +13,50 @@ import static equinton.dev.kata.yatzy.domain.YatzyUtils.*;
 public enum ScoreCalculator {
   CHANCE_CALCULATOR(Category.CHANCE) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.chance(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.chance(diceRoll.diceValues()));
       }
   },
   ONES_CALCULATOR(Category.ONES) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(1, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(1, diceRoll.diceValues()));
       }
   },
   TWO_CALCULATOR(Category.TWOS) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(2, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(2, diceRoll.diceValues()));
       }
   },
   TREES_CALCULATOR(Category.TREES) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(3, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(3, diceRoll.diceValues()));
       }
   },
   FOURS_CALCULATOR(Category.FOURS) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(4, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(4, diceRoll.diceValues()));
       }
   },
   FIVES_CALCULATOR(Category.FIVES) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(5, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(5, diceRoll.diceValues()));
       }
   },
   SIXES_CALCULATOR(Category.SIXES) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.getContractScore(6, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.getContractScore(6, diceRoll.diceValues()));
       }
   },
   PAIR_CALCULATOR(Category.PAIR) {
       @Override
-      public int calculate(int[] diceRoll) {
-          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll.diceValues());
           Predicate<Map.Entry<Integer, Long>> entryPredicate = entry -> entry.getValue() >= 2;
           var valuePairFace =
               groupedDiceValues.entrySet().stream()
@@ -61,70 +64,70 @@ public enum ScoreCalculator {
                   .map(Map.Entry::getKey)
                   .max(Comparable::compareTo)
                   .orElseGet(() -> 0);
-          return valuePairFace * 2;
+          return new Score(valuePairFace * 2);
       }
   },
   TWO_PAIRS_CALCULATOR(Category.TWO_PAIRS) {
       @Override
-      public int calculate(int[] diceRoll) {
-          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll.diceValues());
           var diceFaceWithPair =
               groupedDiceValues.entrySet().stream().filter(entry -> entry.getValue() >= 2).toList();
           if (diceFaceWithPair.size() == 2) {
-              return diceFaceWithPair.stream()
+              return new Score(diceFaceWithPair.stream()
                   .map(Map.Entry::getKey)
                   .mapToInt(diceFace -> diceFace.intValue() * 2)
-                  .sum();
+                  .sum());
           }
-          return 0;
+          return new Score(0);
       }
   },
   TREE_OF_KIND_CALCULATOR(Category.TREE_OF_KIND) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return getValuesRepresentedMoreNTimesAndMultiplyByN(3, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(getValuesRepresentedMoreNTimesAndMultiplyByN(3, diceRoll.diceValues()));
       }
   },
   FOUR_OF_KIND_CALCULATOR(Category.FOUR_OF_KIND) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return getValuesRepresentedMoreNTimesAndMultiplyByN(4, diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(getValuesRepresentedMoreNTimesAndMultiplyByN(4, diceRoll.diceValues()));
       }
   },
   SMALL_STRAIGHT_CALCULATOR(Category.SMALL_STRAIGHT) {
       @Override
-      public int calculate(int[] diceRoll) {
-          var straight = getStraight(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          var straight = getStraight(diceRoll.diceValues());
           if (straight.equals("12345")) {
-              return 15;
+              return new Score(15);
           }
-          return 0;
+          return new Score(0);
       }
   },
   LARGE_STRAIGHT_CALCULATOR(Category.LARGE_STRAIGHT) {
       @Override
-      public int calculate(int[] diceRoll) {
-          var straight = getStraight(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          var straight = getStraight(diceRoll.diceValues());
           if (straight.equals("23456")) {
-              return 20;
+              return new Score(20);
           }
-          return 0;
+          return new Score(0);
       }
   },
   FULL_HOUSE_CALCULATOR(Category.FULL_HOUSE) {
       @Override
-      public int calculate(int[] diceRoll) {
-          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll);
+      public Score calculate(DiceRoll diceRoll) {
+          Map<Integer, Long> groupedDiceValues = groupDiceByFace(diceRoll.diceValues());
           if(groupedDiceValues.keySet().size() != 2) {
-              return 0;
+              return new Score(0);
           }
-          return chance(diceRoll);
+          return new Score(chance(diceRoll.diceValues()));
       }
   },
   YATZY_CALCULATOR(Category.YATZY) {
       @Override
-      public int calculate(int[] diceRoll) {
-          return YatzyUtils.groupDiceByFace(diceRoll).size()==1?50:0;
+      public Score calculate(DiceRoll diceRoll) {
+          return new Score(YatzyUtils.groupDiceByFace(diceRoll.diceValues()).size()==1?50:0);
       }
   };
 
@@ -150,5 +153,5 @@ public enum ScoreCalculator {
     return categoriesCalculators.get(category);
   }
 
-  public abstract int calculate(int[] diceRoll);
+  public abstract Score calculate(DiceRoll diceRoll);
 }
