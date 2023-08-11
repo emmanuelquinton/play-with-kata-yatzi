@@ -8,9 +8,9 @@ class CategoryTest {
 
   @ParameterizedTest
   @ValueSource(strings = {
-      "CHANCE", "ONES", "TWOS", "THREES","FOURS", "FIVES", "SIXES",
+      "CHANCE", "ONES", "TWOS", "TREES","FOURS", "FIVES", "SIXES",
       "PAIR", "TWO_PAIRS",
-      "THREE_OF_KIND","FOUR_OF_KIND",
+      "TREE_OF_KIND","FOUR_OF_KIND",
       "SMALL_STRAIGHT", "LARGE_STRAIGHT",
       "FULL_HOUSE",
       "YATZY"

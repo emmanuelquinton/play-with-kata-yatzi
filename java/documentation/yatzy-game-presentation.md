@@ -46,7 +46,8 @@ If there are two pairs of dice with the same number, the player scores the sum o
 1,1,2,3,4 scores 0
 1,1,2,2,2 scores 6 (1+1+2+2)
 3,3,3,3,1 scores 0
-Three of a kind:
+
+### Three of a kind:
 If there are three dice with the same number, the player scores the sum of these dice. For example, when placed on “three of a kind”:
 
 3,3,3,4,5 scores 9 (3+3+3)

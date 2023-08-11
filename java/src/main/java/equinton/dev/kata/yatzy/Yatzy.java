@@ -1,9 +1,14 @@
 package equinton.dev.kata.yatzy;
 
+import equinton.dev.kata.yatzy.domain.YatzyUtils;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static equinton.dev.kata.yatzy.domain.YatzyUtils.*;
 
 public class Yatzy {
     public static int yatzy(int... dices)
@@ -15,11 +20,7 @@ public class Yatzy {
         return 0;
     }
 
-    public static int chance(int...dices)
-    {
-        return Arrays.stream(dices).sum();
 
-    }
 
 
     public static int ones(int...dices) {
@@ -35,6 +36,10 @@ public class Yatzy {
     public static int threes(int...dices) {
         int contract = 3;
         return getContractScore(contract, dices);
+    }
+
+    public static int chance(int...dices) {
+        return YatzyUtils.chance(dices);
     }
 
     public int fours()
@@ -54,11 +59,7 @@ public class Yatzy {
         int contract = 6;
         return getContractScore(contract, this.dice);
     }
-    private static int getContractScore(int contract, int[] dices) {
-        return Arrays.stream(dices).filter(diceValue -> diceValue == contract)
-            .sum();
 
-    }
 
 
     protected int[] dice;
@@ -71,9 +72,9 @@ public class Yatzy {
     public static int score_pair(int...dices)
     {
         Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-
+        Predicate<Map.Entry<Integer, Long>> entryPredicate = entry -> entry.getValue() == 2;
         var valuePairFace = groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() == 2)
+            .filter(entryPredicate)
             .map(Map.Entry::getKey)
             .max(Comparable::compareTo)
             .orElseGet(() -> 0);
@@ -83,39 +84,22 @@ public class Yatzy {
 
     public static int two_pair(int...dices)
     {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 2)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*2)
-            .sum();
+        return getValuesRepresentedMoreNTimesAndMultiplyByN( 2,dices);
 
     }
     public static int four_of_a_kind(int...dices)
     {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 4)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*4)
-            .sum();
-    }
-
-    private static Map<Integer, Long> groupDiceByFace(int[] dices) {
-        return Arrays.stream(dices).mapToObj(Integer::valueOf)
-            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return getValuesRepresentedMoreNTimesAndMultiplyByN(4,dices);
     }
 
 
+
+
+    //getValuesRepresentedMoreNTimesAndMultiplyByN
 
     public static int three_of_a_kind(int...dices)
     {
-        Map<Integer, Long> groupedDiceValues = groupDiceByFace(dices);
-        return groupedDiceValues.entrySet().stream()
-            .filter(entry -> entry.getValue() >= 3)
-            .map(Map.Entry::getKey)
-            .mapToInt(diceFace -> diceFace.intValue()*3)
-            .sum();
+        return getValuesRepresentedMoreNTimesAndMultiplyByN(3,dices);
     }
 
     public static int smallStraight(int...dices)
@@ -135,9 +119,7 @@ public class Yatzy {
         }
         return 0;
     }
-    private static String getStraight(int[] dices) {
-        return Arrays.stream(dices).sorted().mapToObj(String::valueOf).collect(Collectors.joining());
-    }
+
 
 
     public static int fullHouse(int...dices)

@@ -4,15 +4,17 @@ package equinton.dev.kata.yatzy;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static equinton.dev.kata.yatzy.domain.YatzyUtils.chance;
+
 public class YatzyGameTest {
 
     @Test
 
     public void chance_scores_sum_of_all_dice() {
         int expected = 15;
-        int actual = Yatzy.chance(2,3,4,5,1);
+        int actual = chance(2,3,4,5,1);
         Assertions.assertThat(actual).isEqualTo(expected);
-        Assertions.assertThat(Yatzy.chance(3,3,4,5,1)).isEqualTo(16);
+        Assertions.assertThat(chance(3,3,4,5,1)).isEqualTo(16);
     }
 
     @Test public void yatzy_scores_50() {

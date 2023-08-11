@@ -40,6 +40,13 @@ In first part of this step, the code will be duplicated to keep the old tests an
 
 
 ### Process
-
+#### step3-1 
 - Creationg interface or enum to define the different Category to define 
-- Creation of the class CalculateYatzyScoreUseCase
+- Creation of the class CalculateYatzyScoreUseCase and add Chance case
+
+#### step3-2 
+- create parametrized test 
+  - I added a class Game to set  a roll and expected score
+  - I added provider class for each category
+- add all cases in the CalculateYatzyScoreUseCase
+ 

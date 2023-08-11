@@ -1,6 +1,8 @@
 package equinton.dev.kata.yatzy;
 
 import org.junit.*;
+
+import static equinton.dev.kata.yatzy.domain.YatzyUtils.chance;
 import static org.junit.Assert.*;
 
 public class YatzyTest {
