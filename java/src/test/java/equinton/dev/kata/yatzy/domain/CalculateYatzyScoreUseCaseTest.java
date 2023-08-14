@@ -1,14 +1,47 @@
 package equinton.dev.kata.yatzy.domain;
 
+import equinton.dev.kata.yatzy.domain.exeption.NullCategoryException;
+import equinton.dev.kata.yatzy.domain.exeption.NullRollException;
+import equinton.dev.kata.yatzy.domain.model.Category;
+import equinton.dev.kata.yatzy.domain.model.Roll;
 import equinton.dev.kata.yatzy.util.*;
+import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 
 class CalculateYatzyScoreUseCaseTest {
 
 
+    @Test
+    void should_thrown_an_exception_when_categoy_is_null() {
+        // given
 
+        // when
+        AbstractThrowableAssert<?, ? extends Throwable> actualThrowableAssert = Assertions.assertThatThrownBy(() -> new CalculateYatzyScoreUseCase().execute(null, Roll.of(new int[]{1, 2, 3, 4, 5})));
+
+        // then
+        actualThrowableAssert.as("Check that an exception is thrown when the catagory is null")
+            .isInstanceOf(NullCategoryException.class)
+            .hasMessage("The category can't be null to calculate score.")
+            .hasFieldOrPropertyWithValue("code", "error.yatzy.category-is-null");
+    }
+
+    @Test
+    void should_thrown_an_exception_when_dice_roll_is_null() {
+        // given
+
+        // when
+        AbstractThrowableAssert<?, ? extends Throwable> actualThrowableAssert = Assertions.assertThatThrownBy(() -> new CalculateYatzyScoreUseCase().execute(Category.CHANCE, null));
+
+    // then
+    actualThrowableAssert
+        .as("Check that an exception is thrown when the catagory is null")
+        .isInstanceOf(NullRollException.class)
+        .hasMessage("The roll can't be null to calculate score")
+        .hasFieldOrPropertyWithValue("code", "error.yatzy.roll-is-null");
+    }
     @ParameterizedTest
     @ArgumentsSource(ChanceRollProvider.class)
     void should_calculate_chance_score(Game game){

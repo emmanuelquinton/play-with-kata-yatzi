@@ -1,4 +1,4 @@
-package equinton.dev.kata.yatzy.domain;
+package equinton.dev.kata.yatzy.domain.model;
 
 public enum Category {
 

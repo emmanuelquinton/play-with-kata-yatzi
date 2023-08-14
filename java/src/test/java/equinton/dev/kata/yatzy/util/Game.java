@@ -1,29 +1,32 @@
 package equinton.dev.kata.yatzy.util;
 
+import equinton.dev.kata.yatzy.domain.model.Roll;
+import equinton.dev.kata.yatzy.domain.model.Score;
+
 import java.util.Arrays;
 
 public  class Game {
-    private final int[] roll;
-    private final int expectedResult;
+    private final Roll roll;
+    private final Score expectedResult;
 
 
-    public Game(int[] roll, int expectedResult) {
+    public Game(Roll roll, Score expectedResult) {
         this.roll = roll;
         this.expectedResult = expectedResult;
     }
 
-    public int[] getRoll() {
+    public Roll getRoll() {
         return roll;
     }
 
-    public int getExpectedResult() {
+    public Score getExpectedResult() {
         return expectedResult;
     }
 
     @Override
     public String toString() {
         return "Game{" +
-            "roll=" + Arrays.toString(roll) +
+            "roll=" + Arrays.toString(roll.dice()) +
             ", expectedResult=" + expectedResult +
             '}';
     }

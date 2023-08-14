@@ -1,5 +1,6 @@
-package equinton.dev.kata.yatzy.domain;
+package equinton.dev.kata.yatzy.domain.model;
 
+import equinton.dev.kata.yatzy.domain.model.Category;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

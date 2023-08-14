@@ -62,3 +62,22 @@ The yatzi class was modified only within the methods, so that the YatzyTest clas
 - I renamed the CalculateYatzyScorTest test to CalculateYatzyScoreUseCaseTest
 
 https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-3-refactoring
+
+
+## Step 4 - Add DDD principle
+#### step4-1
+In this step I applied the  value object  principles:
+-  2 Records has been created Score and Roll
+
+#### step4-2
+- In this step I continued to apply the principles od DDD with by creating
+  - Die value object 
+  - Specifications. RollNotNullSpecification and CategoryNotNullSpecification. 
+  For your information: I haven't created specifications for validating the value of a die or validating that a roll contains only six dice,as these tests are internal to the value objects and are not used in other classes. 
+
+- I rename some classes or variables
+  - DiceRoll to Roll
+  - diceValues to dice
+  - YatziRollException to NumberDiceRollException
+
+- I have created tests to verify the value of die or roll at instantiation.
