@@ -40,19 +40,19 @@ public class Yatzy {
     return new CalculateYatzyScoreUseCase().execute(Category.SIXES, Roll.of(this.dice)).value();
   }
 
-  public static int score_pair(int... dices) {
+  public static int scorePair(int... dices) {
     return new CalculateYatzyScoreUseCase().execute(Category.PAIR, Roll.of(dices)).value();
   }
 
-  public static int two_pair(int... dices) {
+  public static int twoPair(int... dices) {
     return new CalculateYatzyScoreUseCase().execute(Category.TWO_PAIRS, Roll.of(dices)).value();
   }
 
-  public static int three_of_a_kind(int... dices) {
+  public static int threeOfAKind(int... dices) {
     return new CalculateYatzyScoreUseCase().execute(Category.TREE_OF_KIND, Roll.of(dices)).value();
   }
 
-  public static int four_of_a_kind(int... dices) {
+  public static int fourOfAKind(int... dices) {
     return new CalculateYatzyScoreUseCase().execute(Category.FOUR_OF_KIND, Roll.of(dices)).value();
   }
 
