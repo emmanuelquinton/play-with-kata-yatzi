@@ -31,7 +31,11 @@ public class YatzyUtils {
   }
 
   public static String getStraight(Die[] dice) {
-    return Arrays.stream(dice).mapToInt(die ->die.value()).sorted().mapToObj(String::valueOf).collect(Collectors.joining());
+    return Arrays.stream(dice)
+        .mapToInt(Die::value)
+        .sorted()
+        .mapToObj(String::valueOf)
+        .collect(Collectors.joining());
   }
 
   public static int getValuesRepresentedMoreNTimesAndMultiplyByN(

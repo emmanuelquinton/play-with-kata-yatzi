@@ -81,3 +81,10 @@ In this step I applied the  value object  principles:
   - YatziRollException to NumberDiceRollException
 
 - I have created tests to verify the value of die or roll at instantiation.
+
+## Step 5 - Add SonarCloud reporting
+In this step, I've added the minimum settings for metrics to be uploaded to SonarCloud.
+For practical reasons, I converted the Junit4 tests to Junit5 and removed the dependency.
+To fixe sonarCloud code smell I 've renamed some method name of the class Yatzy to remove '_'.
+
+The sonarCloud dashboard is here: 
