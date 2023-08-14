@@ -32,7 +32,7 @@ Eventually, the Yatzy class will simply call another class in which all the code
     - define if it's a straight.
 
 
-https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-2-clean-code
+Branch is here: https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-2-clean-code
 
 ## Step 3 - Refactoring
 
@@ -61,7 +61,7 @@ The yatzi class was modified only within the methods, so that the YatzyTest clas
 - From CalculateYatzyScoreUseCase, I created an enum-based strategy (ScoreCalculator);
 - I renamed the CalculateYatzyScorTest test to CalculateYatzyScoreUseCaseTest
 
-https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-3-refactoring
+Branch is here: https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-3-refactoring
 
 
 ## Step 4 - Add DDD principle
@@ -82,9 +82,13 @@ In this step I applied the  value object  principles:
 
 - I have created tests to verify the value of die or roll at instantiation.
 
+Branch is here: https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-4-ddd
+
 ## Step 5 - Add SonarCloud reporting
 In this step, I've added the minimum settings for metrics to be uploaded to SonarCloud.
 For practical reasons, I converted the Junit4 tests to Junit5 and removed the dependency.
 To fixe sonarCloud code smell I 've renamed some method name of the class Yatzy to remove '_'.
 
-The sonarCloud dashboard is here: 
+Branch is here: https://github.com/emmanuelquinton/play-with-kata-yatzy/tree/step-5-sonarqube
+
+The sonarCloud dashboard is here:  https://sonarcloud.io/summary/overall?id=emmanuelquinton_play-with-kata-yatzy
