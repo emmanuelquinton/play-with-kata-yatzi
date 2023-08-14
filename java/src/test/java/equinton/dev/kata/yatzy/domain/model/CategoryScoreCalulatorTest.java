@@ -1,5 +1,7 @@
-package equinton.dev.kata.yatzy.domain;
+package equinton.dev.kata.yatzy.domain.model;
 
+import equinton.dev.kata.yatzy.domain.model.Category;
+import equinton.dev.kata.yatzy.domain.model.ScoreCalculator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -27,7 +29,7 @@ class CategoryScoreCalulatorTest {
         .isEqualTo(expectedScoreCalculator);
   }
 
-    public  static class CalculatorByCategoryExemplesProvider implements ArgumentsProvider {
+    private static class CalculatorByCategoryExemplesProvider implements ArgumentsProvider {
         public CalculatorByCategoryExemplesProvider() {
         }
 

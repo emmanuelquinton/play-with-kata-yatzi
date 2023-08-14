@@ -1,21 +1,21 @@
 package equinton.dev.kata.yatzy.util;
 
-import equinton.dev.kata.yatzy.domain.model.DiceRoll;
+import equinton.dev.kata.yatzy.domain.model.Roll;
 import equinton.dev.kata.yatzy.domain.model.Score;
 
 import java.util.Arrays;
 
 public  class Game {
-    private final DiceRoll roll;
+    private final Roll roll;
     private final Score expectedResult;
 
 
-    public Game(DiceRoll roll, Score expectedResult) {
+    public Game(Roll roll, Score expectedResult) {
         this.roll = roll;
         this.expectedResult = expectedResult;
     }
 
-    public DiceRoll getRoll() {
+    public Roll getRoll() {
         return roll;
     }
 
@@ -26,7 +26,7 @@ public  class Game {
     @Override
     public String toString() {
         return "Game{" +
-            "roll=" + Arrays.toString(roll.diceValues()) +
+            "roll=" + Arrays.toString(roll.dice()) +
             ", expectedResult=" + expectedResult +
             '}';
     }
